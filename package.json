@@ -1,0 +1,25 @@
+{
+  "name": "pseudo-doc-gen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "phantomjs": "phantomjs lib/get_screenshots_and_labeled_rects.js",
+    "start": "node ./src/server & coffee -c -w -o lib src &",
+    "stop": "ps ax | grep node; killall -- node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "casperjs": "^1.1.3",
+    "coffee-script": "^1.11.0",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "gitbook-cli": "^2.3.0",
+    "http-server": "^0.9.0",
+    "marked": "^0.3.6",
+    "morgan": "^1.7.0",
+    "phantomjs": "^2.1.7"
+  }
+}
