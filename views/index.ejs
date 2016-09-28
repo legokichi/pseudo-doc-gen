@@ -11,12 +11,12 @@
   <style type="text/less">
     body {
       position: relative;
-      width: 210mm;
-      height: 297mm;
-      padding-top: 1cm;
-      padding-bottom: 1cm;
-      padding-left: 1cm;
-      padding-right: 1cm;
+      /*width: calc(2*1200)px;
+      height: calc(2*1600)px;*/
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
       background-color: white;
       &>#wrapper {
         position: relative;
@@ -27,18 +27,15 @@
           overflow: hidden;
           text-overflow: ellipsis;
           &>[data-label]{
-            margin: 10px;
+            margin: 2em;
+            float: left;
             &[data-label='text']{
               display: inline-block;
-              font-size: 0.5em;
+              font-size: 1em;
             }
             &[data-label='handwriting']{
-              display: inline-block;
-              zoom: 0.15;
             }
             &[data-label='photo']{
-              max-width: 50mm;
-              max-height: 50mm;
             }
           }
         }

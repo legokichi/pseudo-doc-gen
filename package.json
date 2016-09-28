@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "phantomjs": "phantomjs lib/get_screenshots_and_labeled_rects.js",
+    "build": "coffee -c -o lib src",
     "start": "node ./src/server & coffee -c -w -o lib src &",
     "stop": "ps ax | grep node; killall -- node",
     "test": "echo \"Error: no test specified\" && exit 1"

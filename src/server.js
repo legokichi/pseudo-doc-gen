@@ -85,21 +85,19 @@ api_router.get('/', (req, res)=>{
       for(; i<lines.length; i++){
         let line = lines[i];
         str += line;
-        if(Math.random()>0.99){
+        if(Math.random()>0.93){
           break;
         }
-        tagged_text.push("<span data-label='text' style='width: "+ (50+Math.random()*110|0) +"mm;'>" + str + "</span>");
       }
+      tagged_text.push("<span data-label='text' style='width: "+ (300+Math.random()*310|0) +"px;'>" + str + "</span>");
     }
-    const tagged_handwritings = handwriting_names.map((img)=> "<div data-label='handwriting' style='height:"+ (100+Math.random()*100|0) +"mm; overflow:hidden'><img src='/handwriting/" + img + "' /></div>");
-    const tagged_imgs = img_names.map((img)=> "<img data-label='photo' src='/image/" + img + "' />");
-    const merged = tagged_text.slice(0, 6).reduce((str, line)=>{
-      const rand = Math.random();
-      if(rand>0.5){
-        str += line + (tagged_imgs.length > 0 ? tagged_imgs.pop() : "");
-      }else{
-        str += line + (tagged_handwritings.length > 0 ? tagged_handwritings.pop() : "");
-      }
+    const tagged_handwritings = handwriting_names.map((img)=> "<img data-label='handwriting' width='"+(300+Math.random()*310|0)+"' src='/handwriting/" + img + "' />");
+    const tagged_imgs         = img_names.map(        (img)=> "<img data-label='photo'       width='"+(300+Math.random()*310|0)+"' src='/image/"       + img + "' />");
+    const merged = tagged_text.slice(0, 5).reduce((str, line)=>{
+      //const rand = Math.random();
+      str += line
+      str += (tagged_imgs.length > 0 ? tagged_imgs.pop() : "");
+      str += (tagged_handwritings.length > 0 ? tagged_handwritings.pop() : "");
       return str;
     }, "");
     const html = marked(text);
