@@ -27,12 +27,13 @@ OUTPUT_DIR = "output/"
 page = require('webpage').create()
 
 page.viewportSize =
-  width: 1200,
+  width: 800,
   height: 800
 
 page.onLoadFinished = ->
   labeled_rects = page.evaluate ->
     {
+      text:        Array::slice.call(document.querySelectorAll('[data-label="text"]')).map (elm)-> elm.getBoundingClientRect()
       handwriting: Array::slice.call(document.querySelectorAll('[data-label="handwriting"]')).map (elm)-> elm.getBoundingClientRect()
       photo:       Array::slice.call(document.querySelectorAll('[data-label="photo"]')).map (elm)-> elm.getBoundingClientRect()
       graph:       Array::slice.call(document.querySelectorAll('[data-label="graph"]')).map (elm)-> elm.getBoundingClientRect()

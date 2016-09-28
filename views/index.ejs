@@ -8,19 +8,51 @@
   <link rel="stylesheet" type="text/css" href="/font/AsobiMemogaki.css" />
   <link rel="stylesheet" type="text/css" href="/normalize.css" />
   <link rel="stylesheet" type="text/css" href="/github-markdown.css" />
-  <style media="screen">
+  <style type="text/less">
+    body {
+      position: relative;
+      width: 210mm;
+      height: 297mm;
+      padding-top: 1cm;
+      padding-bottom: 1cm;
+      padding-left: 1cm;
+      padding-right: 1cm;
+      background-color: white;
+      &>#wrapper {
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        &>#content {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          &>[data-label]{
+            margin: 10px;
+            &[data-label='text']{
+              display: inline-block;
+              font-size: 0.5em;
+            }
+            &[data-label='handwriting']{
+              display: inline-block;
+              zoom: 0.15;
+            }
+            &[data-label='photo']{
+              max-width: 50mm;
+              max-height: 50mm;
+            }
+          }
+        }
+      }
+    }
   </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.min.js"></script>
 </head>
 <body>
   <div id="wrapper">
-    <header></header>
-    <aside></aside>
     <section id="content" class="markdown-body">
-          <%-content %>
+      <%-content %>
     </section>
-    <aside></aside>
-    <footer></footer>
   </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script></script>
 </body>
 </html>
