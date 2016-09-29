@@ -1,0 +1,31 @@
+body {
+    position: relative;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: white;
+    zoom:0.5;
+    &>#wrapper {
+        position: relative;
+        &>#content {
+            /*&>*{
+                display: inline-block;
+            }*/
+            &>[data-label]{
+            margin: 18px;
+            float: left;
+            &[data-label='text']{
+                display: inline-block;
+                font-size: 3.5em;
+            }
+            &[data-label='handwriting']{
+            }
+            &[data-label='image']{
+                min-width: 1200px;
+                min-height: 1200px;
+            }
+            }
+        }
+    }
+}

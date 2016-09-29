@@ -1,0 +1,11 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/types/npm-mz/b8855686fe734c77e2f2939a68fa1ab6a8255484/typings.json",
+    "raw": "registry:npm/mz#2.4.0+20160911015431",
+    "main": "index.d.ts",
+    "version": "2.4.0",
+    "name": "mz",
+    "type": "typings"
+  }
+}

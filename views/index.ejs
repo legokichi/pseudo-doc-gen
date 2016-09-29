@@ -8,51 +8,50 @@
   <link rel="stylesheet" type="text/css" href="/font/AsobiMemogaki.css" />
   <link rel="stylesheet" type="text/css" href="/normalize.css" />
   <link rel="stylesheet" type="text/css" href="/github-markdown.css" />
-  <style type="text/less">
-    body {
-      position: relative;
-      /*width: calc(2*1200)px;
-      height: calc(2*1600)px;*/
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-left: 10px;
-      padding-right: 10px;
-      background-color: white;
-      zoom:0.5;
-      &>#wrapper {
-        position: relative;
-        height: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        &>#content {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          &>[data-label]{
-            margin: 18px;
-            float: left;
-            &[data-label='text']{
-              display: inline-block;
-              font-size: 3.5em;
-            }
-            &[data-label='handwriting']{
-            }
-            &[data-label='image']{
-              min-width: 1200px;
-              min-height: 1200px;
-            }
-          }
-        }
-      }
-    }
-  </style>
+  <link rel="stylesheet" type="text/less" href="<%- less %>" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.min.js"></script>
 </head>
 <body>
   <div id="wrapper">
     <section id="content" class="markdown-body">
-      <%-content %>
+      <%- content %>
     </section>
   </div>
+  <script>
+    function getElms(selector){
+      return Array.prototype.slice.call(document.querySelectorAll(selector));
+    }
+    function getRect(elm){
+      var $elm = $(elm);
+      var offset = $elm.offset();
+      return {
+        top: offset.top,
+        left: offset.left,
+        width: $elm.width(),
+        height: $elm.height()
+      };
+    }
+    $(window).on("load", function(){
+      getElms('#content [data-label]').forEach(function(elm){
+        var rect = getRect(elm);
+        console.log(elm, rect);
+        var top = rect.top;
+        var left = rect.left;
+        var width = rect.width;
+        var height = rect.height;
+        var div = document.createElement("div");
+        div.style.display = "inline-block";
+        div.style.position = "absolute";
+        div.style.top = top + "px";
+        div.style.left = left + "px";
+        div.style.width = width + "px";
+        div.style.height = height + "px";
+        div.style.border = "1px solid black";
+        document.body.appendChild(div);
+      });
+      window.__loaded__ = true;
+    });
+  </script>
 </body>
 </html>

@@ -1,0 +1,14 @@
+{
+  "name": "pseudo-doc-gen",
+  "dependencies": {
+    "express": "registry:npm/express#4.14.0+20160925001530",
+    "lodash": "registry:npm/lodash#4.0.0+20160723033700",
+    "mz": "registry:npm/mz#2.4.0+20160911015431"
+  },
+  "globalDependencies": {
+    "ejs": "registry:dt/ejs#0.0.0+20160317120654",
+    "marked": "registry:dt/marked#0.0.0+20160325085301",
+    "morgan": "registry:dt/morgan#1.7.0+20160524142355",
+    "node": "registry:env/node#6.0.0+20160918225031"
+  }
+}
