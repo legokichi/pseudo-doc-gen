@@ -62,37 +62,50 @@ marked.setOptions({
 });
 
 const api_router = express.Router();
-api_router.get('/', (req, res)=>{
-  Promise.all([
-    fs.readdirAsync("htdocs/image"),
-    fs.readdirAsync("htdocs/chars"),
-    fs.readdirAsync("htdocs/handwriting"),
-    fs.readdirAsync("htdocs/text")
-  ])
-  .then(([img_names, chars_names, handwriting_names, text_names])=>{
-    const prms = text_names.map((name)=> fs.readFileAsync("htdocs/text/"+ name, {encoding: "utf8"}) )
-    return Promise.all(prms).then((texts)=>{
-      return {img_names:_.shuffle(img_names), chars_names:_.shuffle(chars_names), handwriting_names, texts};
-    });
-  })
-  .then(({img_names, chars_names, handwriting_names, texts})=>{
+Promise.all([
+  fs.readdirAsync("htdocs/image"),
+  fs.readdirAsync("htdocs/chars"),
+  fs.readdirAsync("htdocs/handwriting"),
+  fs.readdirAsync("htdocs/text")
+])
+.then(([img_names, chars_names, handwriting_names, text_names])=>{
+  const prms = text_names.map((name)=> fs.readFileAsync("htdocs/text/"+ name, {encoding: "utf8"}) )
+  return Promise.all(prms).then((texts)=>{
+    return {img_names:_.shuffle(img_names), chars_names:_.shuffle(chars_names), handwriting_names, texts};
+  });
+})
+.then(({img_names, chars_names, handwriting_names, texts})=>{
+  api_router.get('/', (req, res)=>{
     const text = texts.reduce((all, text)=> all+text);
     const lines = _.shuffle(text.split("\n"));
-    //const tagged_text = lines.map((line)=> "<span data-label='text' style='width: "+ (50+Math.random()*110|0) +"mm;'>" + line + "</span>");
+    function gen(length){
+      const rand = Math.random();
+      const ranb = Math.random();
+      const ccount = rand < 1/3 ? 1
+                   : rand < 2/3 ? 2
+                   :              3
+      const width = ranb < 1/3 ? 30
+                  : ranb < 2/3 ? 60
+                  :              90
+      return `
+      width: ${width}%;
+      column-count: ${ccount};
+      `;
+    }
     const tagged_text = [];
     for(let i=0; i<lines.length; i++){
       let str = "";
       for(; i<lines.length; i++){
         let line = lines[i];
         str += line;
-        if(Math.random()>0.93){
+        if(Math.random()>0.95){
           break;
         }
       }
-      tagged_text.push("<span data-label='text' style='width: "+ (300+Math.random()*310|0) +"px;'>" + str + "</span>");
+      tagged_text.push("<span data-label='text' style='"+gen(str.length)+"'>" + str + "</span>");
     }
-    const tagged_handwritings = handwriting_names.map((img)=> "<img data-label='handwriting' width='"+(300+Math.random()*310|0)+"' src='/handwriting/" + img + "' />");
-    const tagged_imgs         = img_names.map(        (img)=> "<img data-label='photo'       width='"+(300+Math.random()*310|0)+"' src='/image/"       + img + "' />");
+    const tagged_handwritings = handwriting_names.map((img)=> "<img data-label='handwriting' src='/handwriting/" + img + "' />");
+    const tagged_imgs         = img_names.map(        (img)=> "<img data-label='image'       src='/image/"       + img + "' />");
     const merged = tagged_text.slice(0, 5).reduce((str, line)=>{
       //const rand = Math.random();
       str += line
@@ -104,14 +117,16 @@ api_router.get('/', (req, res)=>{
     res.render('index.ejs', {
   		content: merged
   	});
-  }).catch((err)=>{
-    console.log(err);
-    res.send(err);
   });
-});
 
+  app.use('/', express.static('htdocs'));
+  app.use('/', api_router);
 
-app.use('/', express.static('htdocs'));
-app.use('/', api_router);
+  server.listen(8080);
+  console.log("server start");
+}).catch((err)=>{
+  console.log(err);
+  res.send(err);
+}).then(()=>{
 
-server.listen(8080);
+})
