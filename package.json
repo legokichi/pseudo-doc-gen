@@ -9,7 +9,6 @@
     "start": "node ./lib/server.js & coffee -c -w -o lib src & tsc -w",
     "stop": "ps ax | grep node; killall -- node",
     "test": "echo \"Error: no test specified\" && exit 1",
-
     "setup": "npm install -g bower typings",
     "init": "npm run update; npm run build",
     "update": "npm update; bower update; typings install",
@@ -25,6 +24,7 @@
   "dependencies": {
     "coffee-script": "^1.11.0",
     "ejs": "^2.5.2",
+    "encoding-japanese": "^1.0.24",
     "express": "^4.14.0",
     "lodash": "^4.16.2",
     "marked": "^0.3.6",

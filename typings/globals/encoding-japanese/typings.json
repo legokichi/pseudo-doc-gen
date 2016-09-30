@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/cf9955fe1c8bfba17e4b1c8d94bce2b8651d3b9d/encoding-japanese/encoding-japanese.d.ts",
+    "raw": "registry:dt/encoding-japanese#1.0.24+20160417133500",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/cf9955fe1c8bfba17e4b1c8d94bce2b8651d3b9d/encoding-japanese/encoding-japanese.d.ts"
+  }
+}
