@@ -1,6 +1,7 @@
 /// <reference path="../typings/index.d.ts" />
 
 import * as fs from "mz/fs";
+const Encoding = require("encoding-japanese");
 const path = require("path");
 
 
@@ -34,4 +35,8 @@ export function randTimes<T>(fn: ()=>T, threshold: number): T[]{
     ret.push(fn());
   }
   return ret;
+}
+
+export function decode(buffer: Buffer): string{
+  return Encoding.codeToString(Encoding.convert(buffer, 'UNICODE', 'AUTO'));
 }

@@ -4,8 +4,8 @@ var OUTPUT_DIR = "output/";
 var page = require('webpage').create();
 
 page.viewportSize = {
-  width: 800,
-  height: 600
+  width: 1600,
+  height: 1200
 };
 
 var i = 0;
@@ -49,7 +49,7 @@ function onload() {
   page.render(prefix + '_screenshot.png');
   fs.write(prefix + "_rect.json", json);
 
-  if (i++ > 0) {
+  if (i++ > 33333) {
     console.log("end");
     return phantom.exit();
   } else {

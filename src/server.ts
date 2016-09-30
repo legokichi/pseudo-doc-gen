@@ -6,9 +6,8 @@ import * as http from 'http';
 import * as morgan from 'morgan'; // express logger
 import * as ejs from 'ejs'; // template engine
 
-import {marked} from "./marked";
-import * as md_generator from "./markdown-generator";
-import * as style_generator from "./style-generator";
+import * as code_generator from "./code_generator";
+
 // サーバ設定
 
 const app    = express();
@@ -22,13 +21,11 @@ app.use('/', router);
 
 
 Promise.all([
-  style_generator.ready(),
-  md_generator.ready()     // 文書構造捏造器
-]).then(([less_gen, md_gen])=>{
+  code_generator.ready(),
+]).then(([code_gen])=>{
   router.get('/', (req, res)=>{
-    const html = marked(md_gen());
-    const less = less_gen();
-    res.render('index.ejs', { content: html, less: less });
+    const content = code_gen();
+    res.render('index.ejs', { content });
   });
 
   server.listen(8080);

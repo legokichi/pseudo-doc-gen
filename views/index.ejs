@@ -5,33 +5,35 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta http-equiv="cache-control" content="no-cache" />
   <meta http-equiv="pragma" content="no-cache" />
-  <!--link rel="stylesheet" type="text/css" href="/font/AsobiMemogaki.css" /-->
-  <link rel="stylesheet" type="text/less" href="<%- less %>" />
-  <!--script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      skipStartupTypeset: true,
-      extensions: ["tex2jax.js"],
-      jax: ["input/TeX", "output/HTML-CSS"],
-      tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-        displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-        processEscapes: true
-      },
-      "HTML-CSS": {
-        availableFonts: ["TeX"]
-      },
-      "TeX": {
-        extensions: [
-          "AMSmath.js",
-          "AMSsymbols.js",
-          "/xypic.js"
-        ]
-      }
-    });
-  </script-->
-  <!--script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML&delayStartupUntil=configured"></script-->
+  <!--link rel="stylesheet" type="text/css" href="/style/normalize.css" /-->
+  <!--link rel="stylesheet" type="text/css" href="/style/github-markdown.css" /-->
+  <style>
+    body {
+      position: relative;
+      /*width: calc(2*1200)px;
+      height: calc(2*1600)px;*/
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      background-color: white;
+      zoom:0.5;
+    }
+    #wrapper {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    #content [data-label]{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 18px;
+      display: inline-block;
+      float: left;
+    }
+  </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.1/less.min.js"></script>
 </head>
 <body>
   <div id="wrapper">
@@ -53,51 +55,27 @@
         height: $elm.height()
       };
     }
-    /*
-    MathJax.Hub.Configured();
-    
-    function typeset(callback){
-      $(".lang-math-inline").map(function(i, elm){
-        var code = $(elm).children().html()
-          .replace(/\&amp;/g, "&")
-          .replace(/\&lt;/g, "<")
-          .replace(/\&gt;/g, ">");
-        $(elm).after("$" + code + "$").remove();
-      });
-      $(".lang-math").map(function(i, elm){
-        var code = $(elm).html()
-          .replace(/\&amp;/g, "&")
-          .replace(/\&lt;/g, "<")
-          .replace(/\&gt;/g, ">");
-        $(elm).parent().after("$$" + code + "$$").remove();
-      });
-      MathJax.Hub.Queue(
-        ["Typeset", MathJax.Hub, document.body],
-        [callback]
-      );
-    }*/
     $(window).on("load", function(){
-      //typeset(function(){
-        /*getElms('#content [data-label]').forEach(function(elm){
-          var rect = getRect(elm);
-          console.log(elm, rect);
-          var top = rect.top;
-          var left = rect.left;
-          var width = rect.width;
-          var height = rect.height;
-          var div = document.createElement("div");
-          div.style.display = "inline-block";
-          div.style.position = "absolute";
-          div.style.top = top + "px";
-          div.style.left = left + "px";
-          div.style.width = width + "px";
-          div.style.height = height + "px";
-          div.style.border = "1px solid black";
-          document.body.appendChild(div);
-        });*/
-        window.__loaded__ = true;
-        console.log("loaded");
-      //});
+      /*
+      getElms('#content [data-label]').forEach(function(elm){
+        var rect = getRect(elm);
+        console.log(elm, rect);
+        var top = rect.top;
+        var left = rect.left;
+        var width = rect.width;
+        var height = rect.height;
+        var div = document.createElement("div");
+        div.style.display = "inline-block";
+        div.style.position = "absolute";
+        div.style.top = top + "px";
+        div.style.left = left + "px";
+        div.style.width = width + "px";
+        div.style.height = height + "px";
+        div.style.border = "1px solid black";
+        document.body.appendChild(div);
+      });*/
+      window.__loaded__ = true;
+      console.log("loaded");
     });
   </script>
 </body>
