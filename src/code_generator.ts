@@ -2,6 +2,8 @@ const fs = require("mz/fs");
 const _  = require("lodash");
 const Encoding = require("encoding-japanese");
 
+const WIDTH = 1600;
+
 import {times, randTimes, decode, choice} from "./util";
 
 export function ready(): Promise<() => void> {
@@ -58,14 +60,14 @@ export function code_generator(o:{img_names: string[], handwriting_names: string
   function img_style(): string{
     const min =  choice([30, 30, 30, 30, 30, 50, 50, 50]);
     return `
-    min-width:  ${min}%;
+    min-width:  ${min/100*WIDTH}px;
     min-height:  600px;
     `;
   }
   function handwriting_style(): string{
     //const min =  choice([30, 30, 30, 30, 30]);
     return `
-    width:  ${40}%;
+    width:  ${40/100*WIDTH}px;
     `;
   }
   function math_style(): string{
@@ -74,7 +76,7 @@ export function code_generator(o:{img_names: string[], handwriting_names: string
     `;
   }
   function header_style(): string{
-    const min =  choice([10, 11, 12, 13, 14, 15 ]);
+    const min =  choice([3,4,5,6,7]);
     return `
     font-size: ${min}em;
     `;
@@ -97,13 +99,13 @@ export function code_generator(o:{img_names: string[], handwriting_names: string
     if(min < 600 ){
       const style =  `
       font-size: 2em;
-      width:  80%;
+      width:  ${80/100*WIDTH}px;
       `;
       tagged_text.push("<span data-label='text' style='"+style+"'>" + str + "</span>");
     }else if(min < 1100 ){
       const style =  `
       font-size: 2em;
-      width:  40%;
+      width:  ${40/100*WIDTH}px;
       `;
       const str1 = str.slice(0, str.length/2|0);
       const str2 = str.slice(str.length/2|0, str.length);
@@ -112,7 +114,7 @@ export function code_generator(o:{img_names: string[], handwriting_names: string
     }else{
       const style =  `
       font-size: 2em;
-      width:  30%;
+      width:  ${30/100*WIDTH}px;
       `;
       const str1 = str.slice(0, str.length/3|0);
       const str2 = str.slice(str.length/3|0, str.length*2/3|0);
@@ -128,12 +130,12 @@ export function code_generator(o:{img_names: string[], handwriting_names: string
     while(count--){
       list += "<li>"+lines[++i%lines.length].slice(0, 10+Math.random()*20|0)+"</li>"
     }
-    tagged_lists.push("<ul style='margin-left:2em;'>"+list+"</ul>");
+    tagged_lists.push("<ul data-label='list' style='font-size: 2em;'>"+list+"</ul>");
   }
   
   const tagged_handwritings = handwriting_names.map((img)=> "<img data-label='handwriting' src='/handwriting/" + img + "' style='" + handwriting_style() + "'/>");
   const tagged_imgs         = img_names.map(        (img)=> "<img data-label='image'       src='/image/"       + img + "' style='" + img_style() + "'/>");
-  //const tagged_math         = math_names.map(       (img)=> "<img data-label='math'        src='/math/"        + img + "' style='" + math_style() + "'/>");
+  const tagged_math         = math_names.map(       (img)=> "<img data-label='math'        src='/math/"        + img + "' style='" + math_style() + "'/>");
   const tagged_graph        = graph_names.map(      (img)=> "<img data-label='graph'       src='/graph/"       + img + "' style='" + img_style() + "'/>");
   const merged = tagged_text.slice(0, 2).reduce((str, line)=>{
     str += (tagged_header.length       > 0 ? tagged_header.pop()       : "");
@@ -141,7 +143,7 @@ export function code_generator(o:{img_names: string[], handwriting_names: string
     str += (tagged_lists.length        > 0 ? tagged_lists.pop()        : "");
     str += (tagged_imgs.length         > 0 ? tagged_imgs.pop()         : "");
     str += (tagged_handwritings.length > 0 ? tagged_handwritings.pop() : "");
-    //str += (tagged_math.length         > 0 ? tagged_math.pop()         : "");
+    str += (tagged_math.length         > 0 ? tagged_math.pop()         : "");
     str += (tagged_graph.length        > 0 ? tagged_graph.pop()        : "");
     return str;
   }, "");

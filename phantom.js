@@ -36,12 +36,7 @@ page.onLoadFinished = function(){
 function onload() {
   console.log("A");
   var labeled_rects = page.evaluate(function() {
-    return {
-      text:        getElms('#content [data-label="text"]').map(getRect),
-      head:        getElms('#content h1, #content h2, #content h3, #content h4, #content h5').map(getRect),
-      handwriting: getElms('#content [data-label="handwriting"]').map(getRect),
-      image:       getElms('#content [data-label="image"]').map(getRect)
-    };
+    return getEvery();
   });
   console.log("B");
   var prefix = OUTPUT_DIR + Date.now();

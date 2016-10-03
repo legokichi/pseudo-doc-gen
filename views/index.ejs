@@ -5,35 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta http-equiv="cache-control" content="no-cache" />
   <meta http-equiv="pragma" content="no-cache" />
-  <!--link rel="stylesheet" type="text/css" href="/style/normalize.css" /-->
-  <!--link rel="stylesheet" type="text/css" href="/style/github-markdown.css" /-->
+  <link rel="stylesheet" type="text/css" href="/style/normalize.css" />
   <style>
     body {
       position: relative;
-      /*width: calc(2*1200)px;
-      height: calc(2*1600)px;*/
-      padding-top: 10px;
-      padding-bottom: 10px;
-      padding-left: 10px;
-      padding-right: 10px;
       background-color: white;
-      zoom:0.5;
     }
     #wrapper {
       position: relative;
       height: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
     #content [data-label]{
-      overflow: hidden;
-      text-overflow: ellipsis;
       margin: 18px;
       display: inline-block;
       float: left;
     }
   </style>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="/jquery.min.js"></script>
 </head>
 <body>
   <div id="wrapper">
@@ -54,6 +42,17 @@
         width: $elm.width(),
         height: $elm.height()
       };
+    }
+    function getEvery(){
+      return getElms('#content [data-label]').reduce(function(o, elm){
+        var label = $(elm).attr("data-label");
+        if(o[label] == null){
+          o[label] = [getRect(elm)];
+        }else{
+          o[label].push(getRect(elm));
+        }
+        return o;
+      }, {});
     }
     $(window).on("load", function(){
       /*
